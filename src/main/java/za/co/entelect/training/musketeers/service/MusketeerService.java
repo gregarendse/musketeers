@@ -9,7 +9,7 @@ public interface MusketeerService {
 
     Mono<Musketeer> get(Long id);
 
-    Mono<Musketeer> update(Long id);
+    Mono<Musketeer> update(Long id, Musketeer musketeer);
 
     Mono<Void> delete(Long id);
 

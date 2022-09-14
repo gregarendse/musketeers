@@ -1,4 +1,27 @@
 spring:
+  sql:
+    init:
+      mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/musketeers
+    username: musketeers
+    password: musketeers
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
 
+logbook:
+  filter:
+    enabled: true
+  format:
+    style: splunk
+
+logging:
+  level:
+    org.zalando.logbook: trace
