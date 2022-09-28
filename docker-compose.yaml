@@ -1,20 +1,59 @@
 version: '2'
 
+volumes:
+  grafana: { }
+
 services:
 
   musketeers:
+    #    image: musketeers:0.0.1-SNAPSHOT
     build: .
-    environment:
-      - JAVA_OPTS=-Dspring.datasource.url=jdbc:postgresql://postgres:5432/musketeers
+    #    The maximum amount of memory the container can use. If you set this option, the minimum allowed value is 6m (6 megabytes). That is, you must set the value to at least 6 megabytes.
+    mem_limit: 128M
+    #    Specify how much of the available CPU resources a container can use. For instance, if the host machine has two CPUs and you set --cpus="1.5", the container is guaranteed at most one and a half of the CPUs.
+    cpus: 0.1
     ports:
       - "8080:8080"
 
+  # C:\Windows\System32\drivers\etc\hosts
   postgres:
     image: postgres
     environment:
       POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
     volumes:
       - ./src/main/sql:/docker-entrypoint-initdb.d:ro
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    command:
+      - start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8181:8080"
+
+  # https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/
+  grafana:
+    image: grafana/grafana-oss
+    volumes:
+      - grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
 
   # https://github.com/google/cadvisor
   cadvisor:
@@ -30,4 +69,3 @@ services:
       - /dev/disk/:/dev/disk:ro
     devices:
       - /dev/kmsg
-

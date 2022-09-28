@@ -1,10 +1,12 @@
 spring:
+  application:
+    name: @project.name@
   sql:
     init:
       mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/musketeers
+    url: jdbc:postgresql://postgres:5432/musketeers
     username: musketeers
     password: musketeers
   jpa:
@@ -13,15 +15,44 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
     defer-datasource-initialization: true
+  #  security:
+  #    oauth2:
+  #      client:
+  #        registration:
+  #          keycloak:
+  #            client-id: musketeer
+  #            client-secret: wVHEKzUnmJITR7XQsU9DoKisoif1sDoW
+  #        provider:
+  #          keycloak:
+  #            authorization-uri: http://localhost:8181/realms/master/protocol/openid-connect/auth
+  #            token-uri: http://localhost:8181/realms/master/protocol/openid-connect/token
+  #            user-info-uri: http://localhost:8181/realms/master/protocol/openid-connect/userinfo
+  #            jwk-set-uri: http://localhost:8181/realms/master/protocol/openid-connect/certs
+
+  zipkin:
+    base-url: http://zipkin:9411/
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
 
 logbook:
   filter:
     enabled: true
   format:
     style: splunk
+  exclude:
+    - /actuator/*
 
 logging:
   level:
     org.zalando.logbook: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

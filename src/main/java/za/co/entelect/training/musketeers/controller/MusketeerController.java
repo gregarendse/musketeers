@@ -1,5 +1,6 @@
 package za.co.entelect.training.musketeers.controller;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@Timed
 public class MusketeerController {
 
     private final MusketeerService musketeerService;

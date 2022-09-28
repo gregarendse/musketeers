@@ -1,6 +1,7 @@
 package za.co.entelect.training.musketeers.repository.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import za.co.entelect.training.musketeers.model.Gender;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
