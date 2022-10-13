@@ -31,7 +31,9 @@ scrape_configs:
     #target end point. We are using the Docker, so local host will not work. You can change it with
     #localhost if not using the Docker.
     static_configs:
-      - targets: [ 'musketeers:8080' ]
+      - targets:
+          - 'musketeers:8080'
+          - '192.168.1.103:8080'
 
   - job_name: cadvisor
     scrape_interval: 1s

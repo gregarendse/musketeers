@@ -4,6 +4,7 @@ Java, Docker and Memory (The 3 Musketeers?)
 # Intro
 
 Who am I? Gregory Arendse, Technical Lead at Entelect.
+I am an eletrical engineer by training, software engineer by profession. I studied at Wits
 
 I am currently working on a project with Standard Bank where we are modernizing the payment space.
 
